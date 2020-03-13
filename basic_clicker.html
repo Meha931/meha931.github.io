@@ -6,10 +6,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Basic clicker</title>
+	<script>
+var itemClick = function () {Game.items+=1};
+	</script>
 </head>
 <body>
 	<h1 id="heading">Basic clicker</h1>
-	<button onclick=itemclick();>Get a cookie</button>
+	<button onclick=itemClick();>Get a cookie</button>
 	<p id="items">Items: 0</p>
 	<script>
 var Game = {
@@ -20,7 +23,6 @@ var refreshDisplays = function () {
 	docElem("items").innerHTML = "Items: " + Game.items;
 };
 var ticker = setInterval(function(){refreshDisplays()},1000);
-var itemclick = function () {Game.items+=1};
 	</script>
 </body>
 </html>
