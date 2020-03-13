@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <!--
 	Making of Basic Clicker
+	
+	alpha "FrickinRaw" - It's RAW!
 -->
 <html>
 <head>
@@ -8,20 +10,23 @@
     <title>Basic clicker</title>
 </head>
 <body>
+	<p>Version: alpha "FrickinRaw"</p>
+	<h1 id="heading">Basic clicker</h1>
+	<button onclick=itemClick();>Get a cookie</button>
+	<p id="items">Items: 0</p>
+	
 	<script>
+alert("Welcome to Basic Clicker!\nThis is, well, just a basic version of Cookie Clicker, and it will stay as WIP for quite a while.\n\nFew notes: it's raw and updates the stats at 1 tick per second, but it's still playable... hopefully")
 var Game = {
 	items: 0
 };
 var docElem = function (id) {return document.getElementById(id)};
 var refreshDisplays = function () {
+	document.title = Game.items + " items"
 	docElem("items").innerHTML = "Items: " + Game.items;
 };
 var itemClick = function () {Game.items+=1};
 var ticker = setInterval(function(){refreshDisplays()},1000);
 	</script>
-	
-	<h1 id="heading">Basic clicker</h1>
-	<button onclick=itemClick();>Get a cookie</button>
-	<p id="items">Items: 0</p>
 </body>
 </html>
