@@ -2,6 +2,7 @@
 <!--
 	Making of Basic Clicker
 	
+	alpha "Cursors" - Comments and cursors
 	alpha "FrickinRaw" - It's RAW!
 -->
 <html>
@@ -10,23 +11,49 @@
     <title>Basic clicker</title>
 </head>
 <body>
-	<p>Version: alpha "FrickinRaw"</p>
+	<p>Version: alpha "Cursors"</p>
 	<h1 id="heading">Basic clicker</h1>
-	<button onclick=itemClick();>Get an item</button>
+	<button id="getItem" onclick=itemClick();>Get an item</button>
 	<p id="items">Items: 0</p>
+	<p id="cursors">Cursors: 0</p><button id="buyCursor" onclick=Buy.cursor();>1 @ 15 items</button>
 	
 	<script>
 alert("Welcome to Basic Clicker!\nThis is, well, just a basic version of Cookie Clicker, and it will stay as WIP for quite a while.\n\nFew notes: it's raw and updates the stats at 1 tick per second, but it's still playable... hopefully")
+
+// Game database
 var Game = {
-	items: 0
+	items: 0,
+	tick: 0,
+	cursors: 0
 };
+
+// Getting the elements for ease of text changing
 var docElem = function (id) {return document.getElementById(id)};
+var DocElems = {};
+	DocElems.items = docElem("items");
+	DocElems.cursors = docElem("cursors");
+
+// Refresh the displays
 var refreshDisplays = function () {
 	document.title = Game.items + " items"
-	docElem("items").innerHTML = "Items: " + Game.items;
+	DocElems.items.innerHTML = "Items: " + Game.items;
+	DocElems.cursors.innerHTML = "Cursors: " + Game.cursors;
 };
+
+// Button functions
 var itemClick = function () {Game.items+=1};
-var ticker = setInterval(function(){refreshDisplays()},1000);
+var Buy = {
+	cursor: function(){if (Game.items >= 15) {Game.items-=15;Game.cursors+=1}}
+};
+
+// Production
+var produce = function () {
+	Game.tick+=1;
+	if ((Game.tick % 5) === 0) {Game.items+=(Game.cursors)}
+}
+
+// Ticker initiation
+var ticker = setInterval(function(){produce();refreshDisplays()},1000);
 	</script>
 </body>
 </html>
