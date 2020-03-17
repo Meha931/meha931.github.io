@@ -16,7 +16,7 @@
 	<h1 id="header">Basic clicker</h1>
 	<button id="getItem" onclick=itemClick();>+1</button>
 	<p id="items">Items: 0</p>
-	<p id="cursors">Cursors: 0</p><button id="buyCursor" onclick=Buy.cursor();>1 @ 15 items</button>
+	<p id="cursors">Cursors: 0</p><button id="buyCursor" onclick=Buy.cursor();>1 cursor @ 15 items</button>
 	
 	<script>
 
@@ -54,7 +54,7 @@ var refreshDisplays = function () {
 	document.title = Game.items + " " + Game.item;
 	DocElems.items.innerHTML = (Game.item[0].toUpperCase() + Game.item.slice(1).toLowerCase()) + ": " + Game.items;
 	DocElems.cursors.innerHTML = "Cursors: " + Game.cursors;
-	DocElems.buyCursor.innerHTML = "1 @ 15 " + Game.item;
+	DocElems.buyCursor.innerHTML = "1 cursor @ 15 " + Game.item;
 };
 
 // Button functions
