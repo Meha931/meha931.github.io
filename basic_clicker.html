@@ -2,6 +2,7 @@
 <!--
 	Making of Basic Clicker
 	
+	beta "Ticks" - More FPS, owner name and item selection
 	alpha "Cursors" - Comments and cursors
 	alpha "FrickinRaw" - It's RAW!
 -->
@@ -11,20 +12,27 @@
     <title>Basic clicker</title>
 </head>
 <body>
-	<p>Version: alpha "Cursors"</p>
-	<h1 id="heading">Basic clicker</h1>
-	<button id="getItem" onclick=itemClick();>Get an item</button>
+	<p>Version: beta "Ticks"</p>
+	<h1 id="header">Basic clicker</h1>
+	<button id="getItem" onclick=itemClick();>+1</button>
 	<p id="items">Items: 0</p>
 	<p id="cursors">Cursors: 0</p><button id="buyCursor" onclick=Buy.cursor();>1 @ 15 items</button>
 	
 	<script>
-alert("Welcome to Basic Clicker!\nThis is, well, just a basic remake of Cookie Clicker by Orteil, and it will stay as WIP for quite a while.\n\nFew notes: it's raw and it doesn't save the game automatically, but it's still playable... hopefully")
+
+// Getting names
+var ownerName = prompt("Welcome to Basic Clicker!\nThis is, well, just a basic remake of Cookie Clicker by Orteil, and it will stay as WIP for quite a while.\n\nFew notes: it's raw and it doesn't save the game automatically, but it's still playable... hopefully\n\nNow, please select your nickname for the game:","Somebody");
+if ((ownerName === null) || (ownerName === "")) { alert("Seriously?\nSetting the name to Nobody.");ownerName = "Nobody" }
+var itemName = prompt("Tell what items you are going to make:","cookies");
+if ((itemName === null) || (itemName === "")) { alert("Nothings?\nAlright.");itemName = "nothings" }
 
 // Set TPS
 const tps = 66;
 
 // Game database
 var Game = {
+	owner: ownerName,
+	item: itemName,
 	items: 0,
 	tick: 0,
 	cursors: 0
@@ -33,14 +41,20 @@ var Game = {
 // Getting the elements for ease of text changing
 var docElem = function (id) {return document.getElementById(id)};
 var DocElems = {};
+	DocElems.header = docElem("header");
 	DocElems.items = docElem("items");
 	DocElems.cursors = docElem("cursors");
+	DocElems.buyCursor = docElem("buyCursor");
 
-// Refresh the displays
+// Displaying the names
+DocElems.header.innerHTML = Game.owner + "'s " + Game.item + " clicker";
+
+// Refresh the displays (function)
 var refreshDisplays = function () {
-	document.title = Game.items + " items"
-	DocElems.items.innerHTML = "Items: " + Game.items;
+	document.title = Game.items + " " + Game.item;
+	DocElems.items.innerHTML = (Game.item[0].toUpperCase() + Game.item.slice(1).toLowerCase()) + ": " + Game.items;
 	DocElems.cursors.innerHTML = "Cursors: " + Game.cursors;
+	DocElems.buyCursor.innerHTML = "1 @ 15 " + Game.item;
 };
 
 // Button functions
