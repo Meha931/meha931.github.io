@@ -18,7 +18,10 @@
 	<p id="cursors">Cursors: 0</p><button id="buyCursor" onclick=Buy.cursor();>1 @ 15 items</button>
 	
 	<script>
-alert("Welcome to Basic Clicker!\nThis is, well, just a basic remake of Cookie Clicker by Orteil, and it will stay as WIP for quite a while.\n\nFew notes: it's raw, it runs at 1 tick per second and it doesn't save the game automatically, but it's still playable... hopefully")
+alert("Welcome to Basic Clicker!\nThis is, well, just a basic remake of Cookie Clicker by Orteil, and it will stay as WIP for quite a while.\n\nFew notes: it's raw and it doesn't save the game automatically, but it's still playable... hopefully")
+
+// Set TPS
+const tps = 66;
 
 // Game database
 var Game = {
@@ -49,11 +52,11 @@ var Buy = {
 // Production
 var produce = function () {
 	Game.tick+=1;
-	if ((Game.tick % 5) === 0) {Game.items+=(Game.cursors)}
+	if ((Game.tick % (5*tps)) === 0) {Game.items+=(Game.cursors)}
 }
 
 // Ticker initiation
-var ticker = setInterval(function(){produce();refreshDisplays()},1000);
+var ticker = setInterval(function(){produce();refreshDisplays()},(1000/tps));
 	</script>
 </body>
 </html>
