@@ -52,7 +52,7 @@ DocElems.header.innerHTML = Game.owner + "'s " + Game.item + " clicker";
 // Refresh the displays (function)
 var refreshDisplays = function () {
 	document.title = Game.items + " " + Game.item;
-	DocElems.items.innerHTML = (Game.item[0].toUpperCase() + Game.item.slice(1).toLowerCase()) + ": " + Game.items;
+	DocElems.items.innerHTML = (Game.item[0].toUpperCase() + Game.item.slice(1)) + ": " + Game.items;
 	DocElems.cursors.innerHTML = "Cursors: " + Game.cursors;
 	DocElems.buyCursor.innerHTML = "1 cursor @ 15 " + Game.item;
 };
