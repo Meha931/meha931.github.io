@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Bookmarklets</title>
+</head>
+<body>
+	<h1>Bookmarklets collection</h1>
+	<p>Here you can get some useful bookmarklets. Just drag the link to your bookmarks tab!</p>
+<br>
+
+<!--
+<p><a href=''></a></p>
+-->
+<p><a href='javascript:(function(d){d.contentEditable=!d.isContentEditable})(document.body)'>Edit mode toggler</a> and <a href='javascript:void(document.title=prompt("Enter new title:",document.title))'>Title changer</a> - might be useful for, well, editing.</p>
+<p><a href='javascript:void(prompt("Output:",eval(prompt("Input the code that needs to be executed:"))));'>Evaluator</a> - execute some Javascript. Might not work on some sites, because it uses eval().</p>
+<p><a href='javascript:(function(p){if(!(p===null||p===""))location.href="https://google.com/search?q="+p})(prompt("Query:"))'>Google search</a> - quickly switch to Google to look up something.</p>
+<p><a href='javascript:(function(){let c="0123456789abcdefghijklmnopqrstuvwzyzABCDEFGHIJKLMNOPQRSTUVWZYZ";let o="";while(o.length<12)o+=c.charAt(Math.random()*c.length);prompt("Generated password:",o)})();'>Password generator</a> -  a simple and "cryptographically insecure" password generator.</p>
+<p><a href='javascript:alert(Math.round(Math.random())?"Heads":"Tails")'>Coin</a> - toss a coin to make up a decicion.</p>
+<p><a href='javascript:location.href="https://web.archive.org/web/"+prompt("Input the request date in following format: YearMonthDayHourMinuteSecond","YYYYMMDDHHMMSS")+"/"+location.href+"/";void 0'>Wayback Machine</a> - look up an older version of the site.</p>
+<p><a href='javascript:Game.LoadSave(escape(btoa(prompt(Game.WriteSave(3),atob(unescape(Game.WriteSave(1)).split("!END!")[0])))+"!END!"))'>Save decompiler</a> - for Orteil's <a href='https://orteil.dashnet.org/cookieclicker'>Cookie Clicker</a>. <i>Might</i> work on older versions...</p>
+
+</body>
+</html>
