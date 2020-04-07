@@ -30,6 +30,7 @@ if ((itemName === null) || (itemName === "")) { alert("Nothings?\nAlright.");ite
 
 // Set TPS
 const tps = 66;
+const commission = 1.15;
 
 // Game database
 var Game = {
@@ -41,7 +42,9 @@ var Game = {
 	cursors: 0,
 	grandmas: 0
 };
-
+var tempValues = {};
+	tempValues.cursorPrice = 15;
+	tempValues.grandmaPrice = 100;
 // Getting the elements for ease of text changing
 var docElem = function (id) {return document.getElementById(id)};
 var DocElems = {};
@@ -63,22 +66,24 @@ var refreshDisplays = function () {
 	DocElems.items.innerHTML = (Game.item[0].toUpperCase() + Game.item.slice(1)) + ": " + Game.items; // Remove if optimisation is urgent
 	// Cursors:
 	DocElems.cursors.innerHTML = "Cursors: " + Game.cursors;
-	DocElems.buyCursor.innerHTML = "1 cursor @ 15 " + Game.item;
+	DocElems.buyCursor.innerHTML = "1 cursor @ " + tempValues.cursorPrice + " " + Game.item;
 	// Grandmas:
 	DocElems.grandmas.innerHTML = "Grandmas: " + Game.grandmas;
-	DocElems.buyGrandma.innerHTML = "1 grandma @ 100 " + Game.item;
+	DocElems.buyGrandma.innerHTML = "1 grandma @ " + tempValues.grandmaPrice + " " + Game.item;
 };
 
 // Button functions
 var itemClick = function () {Game.items+=1};
 var Buy = {
-	cursor: function(){if (Game.items >= 15) {Game.items-=15;Game.cursors+=1}}, // Cursor
-	grandma: function(){if (Game.items >= 100) {Game.items-=100;Game.grandmas+=1}} // Grandma
+	cursor: function(){if (Game.items >= tempValues.cursorPrice) {Game.items -= tempValues.cursorPrice; Game.cursors+=1}}, // Cursor
+	grandma: function(){if (Game.items >= tempValues.grandmaPrice) {Game.items -= tempValues.grandmaPrice; Game.grandmas+=1}} // Grandma
 };
 
 // Production
 var produce = function () {
 	Game.tick+=1;
+	tempValues.cursorPrice = Math.ceil(15*(commission**Game.cursors)); // Remember (not you, the game) the price of cursor
+	tempValues.grandmaPrice = Math.ceil(100*(commission**Game.grandmas)); // Remember the price of grandma
 	if ((Game.tick % (5*tps)) === 0) {Game.items+=(Game.cursors)} // Cursors
 	if ((Game.tick % tps) === 0) {Game.items+=Game.grandmas} // Grandmas
 }
