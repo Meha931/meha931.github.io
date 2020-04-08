@@ -95,8 +95,8 @@
 	// Variables (Yes, maybe they belong to the "const" part, but actually I want some of these values to be changeable)
 	var score = 0;
 	var time = 0;
-	var timeLeft = 40;
-	var bonusLimit = 2000;
+	var timeLeft = 30;
+	var bonusLimit = 1000;
 	var bonusTime = 20;
 	var totalBonuses = 0;
 	// Welcome the player!
@@ -105,7 +105,7 @@
 This is a remake of a Python game that I made by one book a long time ago.
 
 Move the ship to pop the bubbles before the time runs out!
-At the start you only have ${timeLeft} seconds, but every ${bonusLimit} points you get ${bonusTime} more. Bigger and faster bubbles give more points.
+At the start you only have ${timeLeft} seconds, but with every ${bonusLimit} points you get ${bonusTime} more. Bigger and faster bubbles give more points.
 Keep in mind that it may be tricky to reach the bonus, as there may be an unlucky bubbleless moment, but you can always try again!
 
 Controls: arrows. Just arrows, at least for now.`
