@@ -85,9 +85,32 @@ function cheekcircle(fill) { // x3
     c.arc(points["x"], points["y"], points["radius"], 0, Math.PI*2); // a full circle
     if (fill) c.fill(); else c.stroke();
 }
+function display() {
+    let points = {
+        xe: 87.5/*mess*/, ye: 65, // xEnd and yEnding - edge of visor
+        xs: 50+5, ys: 50+5 // xSmile and ySmiling - edge of the smile ^^)
+    };
+    c.beginPath();
+    c.moveTo(points["xe"], points["ye"]);
+    //c.lineTo(points["xs"], points["ys"]);
+    //c.lineTo()
+    c.bezierCurveTo(
+        (points["xe"]-points["xs"])/3*2+points["xs"]/*WHAT*/, (points["ye"]-points["ys"])/3*1+points["ys"], // HOW DOes this
+        (points["xe"]-points["xs"])/3*1+points["xs"], (points["ye"]-points["ys"])/3*2+points["ys"],         // actually work?!
+        points["xs"], points["ys"]
+    );
+    c.stroke();
+    // And a display...
+    c.beginPath();
+    (function(x, y, tilt){ // I'm tired of objects, gonna use a function
+        c.arc(x, y, 5, 0+tilt, Math.PI+tilt, true); // And simply arc() for now.. ugh...
+    })(50+10, 50-5, Math.PI/12); // this tilt of PI/12 reminds of some other proto...
+    c.fill();
+}
 
 /// Final drawing [wip]
 ear(50+5, 50-20-1);
+display();
 visor();
 ear(50, 50-20);
 headband();
