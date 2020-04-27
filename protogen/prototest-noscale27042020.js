@@ -1,7 +1,7 @@
 /// The proto code! Do copy this one to draw it
 /// (note it's just 'c', not 'ctx')
 c.clearRect(0,0,canvas.width,canvas.height); // clear stuff, just for redrawing and debugging
-function render(scale=1) {
+
 function visor(fill) { // Visor!
 c.beginPath(); // a new starter point, ...for redrawing too, yeah
 c.arc( // so uh, a roundy curve,..
@@ -21,7 +21,7 @@ if (fill) c.fill(); else c.stroke(); // to select the drawing style
 function headband(fill) { // idk how it's called
     let points = { // to copy the lines with offset... uh, to "dupe" the line correctly... ahh, just some data
         x1: 50+5, y1: 50-20+1, // start
-        cpx: 50-10, cpy: 50-6, // quad line
+        cpx: 50-15, cpy: 50-8, // quad line
         x: 50-10, y: 50+18, // ..same quad line
         offx: -5, offy: -1,
         radius: 20 // just why ?
@@ -109,31 +109,10 @@ function display() {
 }
 
 /// Final drawing [wip]
-c.lineWidth = 1*scale;
-c.strokeStyle = "#000";
-c.fillStyle = "green";
-ear(50+5, 50-20-1, true);
 ear(50+5, 50-20-1);
-c.fillStyle = "#202050";
-visor(true);
-//c.fillStyle = "deepskyblue";
-//c.strokeStyle = "darkturquoise";
-c.fillStyle = "cyan";
-c.strokeStyle = "cyan";
 display();
-c.strokeStyle = "#000";
 visor();
-c.fillStyle = "green";
-ear(50, 50-20, true);
 ear(50, 50-20);
-c.fillStyle = "AliceBlue";
-headband(true);
 headband();
-c.fillStyle = "azure";
-cheekplate(true);
 cheekplate();
-c.fillStyle = "deepskyblue";
-cheekcircle(true);
 cheekcircle();
-}
-render();
