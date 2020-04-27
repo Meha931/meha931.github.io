@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Proto ^^</title>
+</head>
+<body>
+    <script>
+
+/// Just setup, skip this part
+var canvas = document.createElement("canvas"); // let there be a canvas
+canvas.width = 150; // some parameters here, like width and height, not really needed now...
+canvas.height = 300; // ...how to comment a comment?
+document.body.appendChild(canvas); // put the canvas onto the page
+var c = canvas.getContext("2d"); // "hey, this is not an image holder or webgl or whatever, just some simple 2d drawing"
+// also yeah, it's simply "c" and not "ctx", i need that shorter, fite me x3
+
+// Grid - to get the positions right (better do it manually, really)
+function grid(step){
+    if (!step) return; // if zero, go on without a grid
+    for(let i=0; i*step < canvas.width; i++){ // start with zero; go on while it's not bigger than canvas; make it farther
+        c.beginPath(); // a new line
+        c.moveTo(i*step, 0); // move to new x, on top,..
+        c.lineTo(i*step, canvas.height); // ...and strike a line all the way to the bottom
+        c.stroke(); // and actually draw (or render) it..
+    }
+    for(let i=0; i*step < canvas.height; i++){ // did i really use let instead of var.. again..?
+        c.beginPath(); // new line...
+        c.moveTo(0, i*step); // same, but move the way along y axis,..
+        c.lineTo(canvas.width, i*step); // ...and a line to the right
+        c.stroke(); // ..and draw it
+    }
+}
+
+    </script>
+    
+    <!-- And the final proto code! -->
+    <script src=prototest.js></script>
+    
+</body>
+</html>
