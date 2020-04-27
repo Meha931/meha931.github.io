@@ -15,7 +15,7 @@ document.body.appendChild(canvas); // put the canvas onto the page
 var c = canvas.getContext("2d"); // "hey, this is not an image holder or webgl or whatever, just some simple 2d drawing"
 // also yeah, it's simply "c" and not "ctx", i need that shorter, fite me x3
 
-// Grid - to get the positions right (better do it manually, really)
+// Grid - to get the positions right (better do it manually, really),and is actually not needed nor used
 function grid(step){
     if (!step) return; // if zero, go on without a grid
     for(let i=0; i*step < canvas.width; i++){ // start with zero; go on while it's not bigger than canvas; make it farther
@@ -36,6 +36,13 @@ function grid(step){
     
     <!-- And the final proto code! -->
     <script src=prototest.js></script>
+    <script>
+        var scale = prompt("Please enter the image scale:",2);
+        if (!+scale/*nice..?*/) scale = 1;
+        canvas.width = 150*scale;
+        canvas.height = 150*scale;
+        render(scale); // yay!
+    </script>
     
 </body>
 </html>
