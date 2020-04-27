@@ -57,9 +57,39 @@ function ear(x,y,fill) {
     );
     if (fill) c.fill(); else c.stroke();
 }
+function cheekplate(fill) { // *cheekplates*, hilarious... thb i don't know how are these called
+    let points = {
+        x: 50-7.5, y: 50+10, // don't forget to copy to cheekcircle()!
+        radius: 7.5,
+        offx: -30+2.5, stretch: 7.5 // for the bezier curve instead of a quad curve
+    };
+    c.beginPath();
+    c.arc(points["x"], points["y"], points["radius"], Math.PI/2, 3*Math.PI/2, true); // why 'true' though?..
+    /*c.quadraticCurveTo(
+        points["x"]-40, points["y"],
+        points["x"], points["y"]+points["radius"]
+    ); -- obsolete, too sharp*/
+    c.bezierCurveTo(
+        points["x"]+points["offx"], points["y"]-points["stretch"],
+        points["x"]+points["offx"], points["y"]+points["stretch"],
+        points["x"], points["y"]+points["radius"]
+    );
+    if (fill) c.fill(); else c.stroke();
+}
+function cheekcircle(fill) { // x3
+    let points = {
+        x: 50-7.5, y: 50+10, // copy from cheekplate() here
+        radius: 5
+    };
+    c.beginPath();
+    c.arc(points["x"], points["y"], points["radius"], 0, Math.PI*2); // a full circle
+    if (fill) c.fill(); else c.stroke();
+}
 
 /// Final drawing [wip]
 ear(50+5, 50-20-1);
 visor();
 ear(50, 50-20);
 headband();
+cheekplate();
+cheekcircle();
