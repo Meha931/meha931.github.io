@@ -18,6 +18,31 @@ c.bezierCurveTo( // here goes mess, don't read further it's too weird... (also i
 ); // kinda fine, already too bored to change, or maybe it's just a bit difficult
 if (fill) c.fill(); else c.stroke(); // to select the drawing style
 }
+function headband(fill) { // idk how it's called
+    let points = { // to copy the lines with offset... uh, to "dupe" the line correctly... ahh, just some data
+        x1: 50+5, y1: 50-20, // start
+        cpx: 50-15, cpy: 50-8, // quad line
+        x: 50-10, y: 50+18, // ..same quad line
+        offx: -5, offy: -1,
+        radius: 20 // just why ?
+    };
+    c.beginPath();
+    c.moveTo(points["x1"], points["y1"]);
+    c.quadraticCurveTo( // uhh..? this should work, i guess... um?
+        points["cpx"], points["cpy"],
+        points["x"], points["y"],
+        20 // nah, not points["radius"]
+    );
+    c.lineTo(points["x"]+points["offx"], points["y"]+points["offy"]);
+    c.quadraticCurveTo(
+        points["cpx"]+points["offx"], points["cpy"]+points["offy"],
+        points["x1"]+points["offx"], points["y1"]+points["offy"],
+        20
+    ); // (yes!! it works!)
+    c.closePath(); // easier than c.lineTo(points["x1"], points["y1"]); hehe
+    if (fill) c.fill(); else c.stroke();
+}
 
 /// Final drawing [wip]
 visor();
+headband();
