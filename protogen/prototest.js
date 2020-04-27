@@ -20,7 +20,7 @@ if (fill) c.fill(); else c.stroke(); // to select the drawing style
 }
 function headband(fill) { // idk how it's called
     let points = { // to copy the lines with offset... uh, to "dupe" the line correctly... ahh, just some data
-        x1: 50+5, y1: 50-20, // start
+        x1: 50+5, y1: 50-20+1, // start
         cpx: 50-15, cpy: 50-8, // quad line
         x: 50-10, y: 50+18, // ..same quad line
         offx: -5, offy: -1,
@@ -42,7 +42,24 @@ function headband(fill) { // idk how it's called
     c.closePath(); // easier than c.lineTo(points["x1"], points["y1"]); hehe
     if (fill) c.fill(); else c.stroke();
 }
+function ear(x,y,fill) {
+    let points = { // now there are offsets only, fyi.. uh?
+        cp1x: -25-2.5, cp1y: -25-5,
+        cp2x: -50-7.5, cp2y: -5-5+2.5,
+        x: -15, y: 35
+    };
+    c.beginPath();
+    c.moveTo(x-2.5+2, y+2.5+2);
+    c.bezierCurveTo(
+        x+points["cp1x"], y+points["cp1y"],
+        x+points["cp2x"], y+points["cp2y"],
+        x+points["x"], y+points["y"]
+    );
+    if (fill) c.fill(); else c.stroke();
+}
 
 /// Final drawing [wip]
+ear(50+5, 50-20-1);
 visor();
+ear(50, 50-20);
 headband();
