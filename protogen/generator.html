@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Protogen generator</title>
+</head>
+<body>
+    <div id="canvasHolder"></div>
+    <div id="buttonHolder"><button onclick="render();">Render</button></div>
+    <fieldset>
+        <legend>General</legend>
+        <p><label>Scale: <input id="form-general_scale" type="number" min=0 value=1></label></p>
+        <p><label>X: <input id="form-general_x" type="number" min=0 value=175></label></p>
+        <p><label>Y: <input id="form-general_y" type="number" min=0 value=175></label></p>
+        <p><label>Symbol color: <input id="form-general_symbol" type="text" value="deepskyblue"></label></p>
+        <p><label>Background color: <input id="form-general_background" type="text" value="#FEFEFE"></label></p>
+        <p><label>Watermark strokes: <input id="form-general_watermark" type="number" min=0 value=0></label></p>
+    </fieldset>
+    
+    <fieldset>
+        <legend>Body</legend>
+        <p><label>Angle: <input id="form-body_angle" type="number" value=15></label></p>
+        <p><label>Torso color: <input id="form-body_torso" type="text" value="#A0A0B0"></label></p>
+        <p><label>Chestplate color: <input id="form-body_chestplate" type="text" value="cyan"></label></p>
+    </fieldset>
+    
+    <fieldset>
+        <legend>Head</legend>
+        <p><label>Relative angle: <input id="form-head_angle" type="number" value=-30></label></p>
+        <p><label>Visor color: <input id="form-head_visor" type="text" value="#101040"></label></p>
+        <p><label>Headband color: <input id="form-head_headband" type="text" value="aliceblue"></label></p>
+        <p><label>Ears color: <input id="form-head_ears" type="text" value="cornflowerblue"></label></p>
+        <p><label>Cheekplates color: <input id="form-head_cheekplates" type="text" value="azure"></label></p>
+        <p><label>Display color: <input id="form-head_display" type="text" value="cyan"></label></p>
+    </fieldset>
+    
+    <fieldset>
+        <legend>Arms</legend>
+        <p><label>Relative angle of upper left arm: <input id="form-arms_angle_upperleft" type="number" value=30></label></p>
+        <p><label>Relative angle of upper right arm: <input id="form-arms_angle_upperright" type="number" value=-30></label></p>
+        <p><label>Upper arm color: <input id="form-arms_color_upper" type="text" value="orange"></label></p>
+        <p><label>Relative angle of lower left arm: <input id="form-arms_angle_lowerleft" type="number" value=-90></label></p>
+        <p><label>Relative angle of lower right arm: <input id="form-arms_angle_lowerright" type="number" value=-120></label></p>
+        <p><label>Lower arm color: <input id="form-arms_color_lower" type="text" value="pink"></label></p>
+    </fieldset>
+    
+    <fieldset>
+        <legend>Legs</legend>
+        <p><label>Relative angle of upper left leg: <input id="form-legs_angle_upperleft" type="number" value=-30></label></p>
+        <p><label>Relative angle of upper right leg: <input id="form-legs_angle_upperright" type="number" value=-105></label></p>
+        <p><label>Upper leg color: <input id="form-legs_color_upper" type="text" value="cadetblue"></label></p>
+        <p><label>Relative angle of lower left leg: <input id="form-legs_angle_lowerleft" type="number" value=75></label></p>
+        <p><label>Relative angle of lower right leg: <input id="form-legs_angle_lowerright" type="number" value=105></label></p>
+        <p><label>Lower leg color: <input id="form-legs_color_lower" type="text" value="#FF8C00"></label></p>
+    </fieldset>
+    
+    <script>
+        var canvas = document.createElement("canvas");
+        canvas.width = 0;
+        canvas.height = 0;
+        document.getElementById("canvasHolder").appendChild(canvas); // appendment returns canvas, right? ..nvm
+        var ctx = canvas.getContext("2d");
+    </script>
+    <script src="protogen-generator.js"></script>
+    <script>
+        var getElement = id => document.getElementById(id);
+        var degToRad = deg => deg/180*Math.PI;
+        var forms = {
+            general: {
+                scale: getElement("form-general_scale"),
+                x: getElement("form-general_x"),
+                y: getElement("form-general_y"),
+                symbol: getElement("form-general_symbol"),
+                background: getElement("form-general_background"),
+                watermark: getElement("form-general_watermark")
+            },
+            body: {
+                angle: getElement("form-body_angle"),
+                torso: getElement("form-body_torso"),
+                chestplate: getElement("form-body_chestplate")
+            },
+            head: {
+                angle: getElement("form-head_angle"),
+                visor: getElement("form-head_visor"),
+                headband: getElement("form-head_headband"),
+                ears: getElement("form-head_ears"),
+                cheekplates: getElement("form-head_cheekplates"),
+                display: getElement("form-head_display")
+            },
+            arms: {
+                angle: {
+                    upperLeft: getElement("form-arms_angle_upperleft"),
+                    upperRight: getElement("form-arms_angle_upperright"),
+                    lowerLeft: getElement("form-arms_angle_lowerleft"),
+                    lowerRight: getElement("form-arms_angle_lowerright")
+                },
+                color: {
+                    upper: getElement("form-arms_color_upper"),
+                    lower: getElement("form-arms_color_lower")
+                }
+            },
+            legs: {
+                angle: {
+                    upperLeft: getElement("form-legs_angle_upperleft"),
+                    upperRight: getElement("form-legs_angle_upperright"),
+                    lowerLeft: getElement("form-legs_angle_lowerleft"),
+                    lowerRight: getElement("form-legs_angle_lowerright")
+                },
+                color: {
+                    upper: getElement("form-legs_color_upper"),
+                    lower: getElement("form-legs_color_lower")
+                }
+            }
+        };
+        function render() {
+            
+            let inputs = {
+                scale: +forms.general.scale.value
+            };
+            
+            canvas.width = 350 * inputs.scale; // +forms.general.x.value * inputs.scale;
+            canvas.height = 350 * inputs.scale; // +forms.general.y.value * inputs.scale;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.lineWidth = 1*inputs.scale;
+            ctx.strokeStyle = "#000";
+            ctx.fillStyle = "#000";
+            
+            /// Setting up parameters for drawing
+            
+            let bodyParams = {
+                x: +forms.general.x.value, // canvas.width/2,
+                y: +forms.general.y.value, // 11*canvas.height/24, // The, uh... eleven twenty-fourth' parts?
+                color: {
+                    torso: forms.body.torso.value,
+                    chestplate: forms.body.chestplate.value
+                },
+                angle: degToRad(+forms.body.angle.value)
+            };
+            
+            let headParams = {
+                x: rotatePoint(bodyParams.x, bodyParams.y, bodyParams.x, bodyParams.y-100, bodyParams.angle)[0],
+                y: rotatePoint(bodyParams.x, bodyParams.y, bodyParams.x, bodyParams.y-100, bodyParams.angle)[1],
+                color: {
+                    visor: forms.head.visor.value,
+                    headband: forms.head.headband.value,
+                    ears: forms.head.ears.value,
+                    cheekplates: forms.head.cheekplates.value,
+                    cheekcircle: forms.general.symbol.value,
+                    display: forms.head.display.value
+                },
+                angle: degToRad(+forms.head.angle.value)
+            };
+            
+            let upperArmsParams = {
+                x: rotatePoint(bodyParams.x, bodyParams.y, bodyParams.x, bodyParams.y-75, bodyParams.angle)[0],
+                y: rotatePoint(bodyParams.x, bodyParams.y, bodyParams.x, bodyParams.y-75, bodyParams.angle)[1],
+                color: {
+                    arm: forms.arms.color.upper.value,
+                    armplate: forms.general.symbol.value
+                },
+                angle: {
+                    left: degToRad(+forms.arms.angle.upperLeft.value),
+                    right: degToRad(+forms.arms.angle.upperRight.value)
+                }
+            };
+            
+            let lowerArmsParams = {
+                x: { // Copy the +number values from the length of upper arms (see protogen-generator.js)
+                    left: rotatePoint(upperArmsParams.x, upperArmsParams.y, upperArmsParams.x, upperArmsParams.y+50, bodyParams.angle+upperArmsParams.angle.left)[0],
+                    right: rotatePoint(upperArmsParams.x, upperArmsParams.y, upperArmsParams.x, upperArmsParams.y+50, bodyParams.angle+upperArmsParams.angle.right)[0]
+                },
+                y: {
+                    left: rotatePoint(upperArmsParams.x, upperArmsParams.y, upperArmsParams.x, upperArmsParams.y+50, bodyParams.angle+upperArmsParams.angle.left)[1],
+                    right: rotatePoint(upperArmsParams.x, upperArmsParams.y, upperArmsParams.x, upperArmsParams.y+50, bodyParams.angle+upperArmsParams.angle.right)[1]
+                },
+                color: {
+                    arm: forms.arms.color.lower.value
+                },
+                angle: {
+                    left: degToRad(+forms.arms.angle.lowerLeft.value),
+                    right: degToRad(+forms.arms.angle.lowerRight.value)
+                }
+            }
+            
+            let upperLegsParams = {
+                x: rotatePoint(bodyParams.x, bodyParams.y, bodyParams.x, bodyParams.y+15, bodyParams.angle)[0],
+                y: rotatePoint(bodyParams.x, bodyParams.y, bodyParams.x, bodyParams.y+15, bodyParams.angle)[1],
+                color: {
+                    leg: forms.legs.color.upper.value,
+                    legplate: forms.general.symbol.value
+                },
+                angle: {
+                    left: degToRad(+forms.legs.angle.upperLeft.value),
+                    right: degToRad(+forms.legs.angle.upperRight.value)
+                }
+            };
+            
+            let lowerLegsParams = {
+                x: {
+                    left: rotatePoint(upperLegsParams.x, upperLegsParams.y, upperLegsParams.x, upperLegsParams.y+60, bodyParams.angle+upperLegsParams.angle.left)[0],
+                    right: rotatePoint(upperLegsParams.x, upperLegsParams.y, upperLegsParams.x, upperLegsParams.y+60, bodyParams.angle+upperLegsParams.angle.right)[0]
+                },
+                y: {
+                    left: rotatePoint(upperLegsParams.x, upperLegsParams.y, upperLegsParams.x, upperLegsParams.y+60, bodyParams.angle+upperLegsParams.angle.left)[1],
+                    right: rotatePoint(upperLegsParams.x, upperLegsParams.y, upperLegsParams.x, upperLegsParams.y+60, bodyParams.angle+upperLegsParams.angle.right)[1]
+                },
+                color: {
+                    leg: forms.legs.color.lower.value
+                },
+                angle: {
+                    left: degToRad(+forms.legs.angle.lowerLeft.value),
+                    right: degToRad(+forms.legs.angle.lowerRight.value)
+                }
+            };
+            
+            /// The drawing itself!
+            
+            ctx.fillStyle = forms.general.background.value;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            armLower({ // Left lower arm
+                x: lowerArmsParams.x.left,
+                y: lowerArmsParams.y.left,
+                color: {
+                    arm: lowerArmsParams.color.arm
+                },
+                parentTilt: bodyParams.angle + upperArmsParams.angle.left,
+                localTilt: lowerArmsParams.angle.left,
+                style: 1,
+                scale: inputs.scale
+            });
+            
+            armUpper({ // Left upper arm
+                x: upperArmsParams.x,
+                y: upperArmsParams.y,
+                color: {
+                    arm: upperArmsParams.color.arm,
+                    armplate: upperArmsParams.color.armplate
+                },
+                parentTilt: bodyParams.angle,
+                localTilt: upperArmsParams.angle.left,
+                style: 1,
+                scale: inputs.scale,
+                right: false
+            });
+            
+            legLower({ // Left lower leg
+                x: lowerLegsParams.x.left,
+                y: lowerLegsParams.y.left,
+                color: {
+                    leg: lowerLegsParams.color.leg
+                },
+                parentTilt: bodyParams.angle + upperLegsParams.angle.left,
+                localTilt: lowerLegsParams.angle.left,
+                style: 1,
+                scale: inputs.scale
+            });
+            
+            legUpper({ // Left upper leg
+                x: upperLegsParams.x,
+                y: upperLegsParams.y,
+                color: {
+                    leg: upperLegsParams.color.leg,
+                    legplate: upperLegsParams.color.legplate
+                },
+                parentTilt: bodyParams.angle,
+                localTilt: upperLegsParams.angle.left,
+                style: 1,
+                scale: inputs.scale,
+                right: false
+            });
+            
+            body({
+                x: bodyParams.x,
+                y: bodyParams.y,
+                color: {
+                    torso: bodyParams.color.torso,
+                    chestplate: bodyParams.color.chestplate
+                },
+                parentTilt: 0,
+                localTilt: bodyParams.angle,
+                style: 1,
+                scale: inputs.scale
+            });
+            
+            head({
+                x: headParams.x,
+                y: headParams.y,
+                color:{
+                    visor: headParams.color.visor,
+                    headband: headParams.color.headband,
+                    ear: headParams.color.ears,
+                    cheekplates: headParams.color.cheekplates,
+                    cheekcircle: headParams.color.cheekcircle,
+                    display: headParams.color.display
+                },
+                parentTilt: bodyParams.angle,
+                localTilt: headParams.angle,
+                style: 1,
+                scale: inputs.scale
+            });
+            
+            legLower({ // Right lower leg
+                x: lowerLegsParams.x.right,
+                y: lowerLegsParams.y.right,
+                color: {
+                    leg: lowerLegsParams.color.leg
+                },
+                parentTilt: bodyParams.angle + upperLegsParams.angle.right,
+                localTilt: lowerLegsParams.angle.right,
+                style: 1,
+                scale: inputs.scale
+            });
+            
+            legUpper({ // Right upper leg
+                x: upperLegsParams.x,
+                y: upperLegsParams.y,
+                color: {
+                    leg: upperLegsParams.color.leg,
+                    legplate: upperLegsParams.color.legplate
+                },
+                parentTilt: bodyParams.angle,
+                localTilt: upperLegsParams.angle.right,
+                style: 1,
+                scale: inputs.scale,
+                right: true
+            });
+            
+            armUpper({ // Right upper arm
+                x: upperArmsParams.x,
+                y: upperArmsParams.y,
+                color: {
+                    arm: upperArmsParams.color.arm,
+                    armplate: upperArmsParams.color.armplate
+                },
+                parentTilt: bodyParams.angle,
+                localTilt: upperArmsParams.angle.right,
+                style: 1,
+                scale: inputs.scale,
+                right: true
+            });
+            
+            armLower({ // Right lower arm
+                x: lowerArmsParams.x.right,
+                y: lowerArmsParams.y.right,
+                color: {
+                    arm: lowerArmsParams.color.arm
+                },
+                parentTilt: bodyParams.angle + upperArmsParams.angle.right,
+                localTilt: lowerArmsParams.angle.right,
+                style: 1,
+                scale: inputs.scale
+            });
+            
+            // if (forms.general.watermark.checked === true)... -- checkbox type
+            
+            let hexNumbers = "0123456789ABCDEF";
+            let allowedTransparency = "0123";
+            
+            for (let i = 0; i < +forms.general.watermark.value; i++) {
+                let color = "#";
+                for (let j = 0; j < 6; j++) {
+                    color+=hexNumbers.charAt(Math.random()*hexNumbers.length);
+                }
+                for (let j = 0; j < 2; j++){
+                    color+=allowedTransparency.charAt(Math.random()*allowedTransparency.length);
+                }
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 10*inputs.scale;
+                
+                ctx.beginPath();
+                ctx.moveTo(Math.random()*canvas.width, Math.random()*canvas.height);
+                ctx.bezierCurveTo(
+                    Math.random()*canvas.width, Math.random()*canvas.height,
+                    Math.random()*canvas.width, Math.random()*canvas.height,
+                    Math.random()*canvas.width, Math.random()*canvas.height
+                );
+                ctx.stroke();
+                
+                ctx.lineWidth = 1*inputs.scale;
+                ctx.strokeStyle = "#000";
+            }
+            
+        }
+        
+    </script>
+</body>
+</html>
