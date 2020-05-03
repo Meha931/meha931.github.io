@@ -361,10 +361,10 @@
             for (let i = 0; i < +forms.general.watermark.value; i++) {
                 let color = "#";
                 for (let j = 0; j < 6; j++) {
-                    color+=hexNumbers.charAt(Math.random()*hexNumbers.length);
+                    color+=hexNumbers.charAt(Math.floor(Math.random()*hexNumbers.length));
                 }
                 for (let j = 0; j < 2; j++){
-                    color+=allowedTransparency.charAt(Math.random()*allowedTransparency.length);
+                    color+=allowedTransparency.charAt(Math.floor(Math.random()*allowedTransparency.length));
                 }
                 ctx.strokeStyle = color;
                 ctx.lineWidth = 10*inputs.scale;
