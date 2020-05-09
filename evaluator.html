@@ -6,9 +6,13 @@
 </head>
 <body>
     <div>
-        <button onclick="eval(document.getElementById('codeform').value);">Evaluate</button>
+        <button onclick="eval('try{'+document.getElementById('codeform').value+'}catch(e){alert(e)}');">Evaluate</button>
         <br>
-        <textarea id="codeform" type="textfield"></textarea>
+        <textarea id="codeform" type="textfield" style="/*width:640px; height:480px;*/" cols=100 rows=50 spellcheck="false" placeholder="Code here!" autocomplete="off" autofocus></textarea>
     </div>
+    <!-- <script>
+    oninput=
+    
+    </script> -->
 </body>
 </html>
