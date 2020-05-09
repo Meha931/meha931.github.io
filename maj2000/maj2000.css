@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+    background: white;
+    margin: 0;
+}
+.container {
+    /*position: relative;*/ /* wha-? */
+    width: 80%;
+    min-width: 500px;
+    margin: 0 auto;
+    background: #cbc0b7;
+    /*min-height: 1000px;*/
+}
+.header {
+    background: #832;
+    padding: 10px 40px;
+} .header h1 {
+    color: #F8F8F8;
+    font-size: 24pt;
+    font-weight: bold;
+} .header p {
+    color: silver;
+    font-size: 12pt;
+    font-weight: bold;
+}
+.content {
+    margin-right: 200px; /* Set the same value as .sidebar plus its padding have */
+    min-height: 500px;
+    padding: 20px;
+} .content h1 {
+    
+} .content p {
+    
+}
+.sidebar {
+    float: right;
+    width: 180px; padding: 20px 10px; /* See also .content */
+    background: #fed;
+    min-height: 80px;
+    
+} .sidebar h1 {
+    
+} .sidebar p {
+    
+}
+.footer {
+    background: #333;
+    color: silver;
+    /*position: absolute;*/ /* okayy.. */
+    padding: 10px 25px;
+    font-weight: 10px;
+    bottom: 0;
+}
