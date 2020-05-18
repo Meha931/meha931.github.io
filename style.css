@@ -1,11 +1,57 @@
 body {
     font-family: Arial, sans-serif;
+    background: #eef;
+    margin: 0;
 }
-
-h1 {
-    font-size: 2em;
+.container {
+    width: 80%;
+    min-width: 500px;
+    margin: 0 auto 0;
+    background: #cbc0b7;
 }
-
-p {
-    font-size: 1em;
+.header {
+    background: #832;
+    padding: 10px 20px;
+} .header h1 {
+    color: #F8F8F8;
+    font-size: 24pt;
+    font-weight: bold;
+} .header p {
+    color: silver;
+    font-size: 12pt;
+    font-weight: bold;
+}
+.content {
+    margin-right: 250px;
+    min-height: 10px;
+    padding: 20px;
+} .content h1 {
+    
+} .content p {
+    
+}
+.sidebar {
+    float: right;
+    width: 210px;
+    padding: 10px 20px;
+    background: #fed;
+    min-height: 50px;
+} .sidebar h1 {
+    font-size: 20pt;
+    text-align: center;
+} .sidebar p {
+    
+} .sidebar:after {
+    clear: both;
+}
+.footer {
+    background: #333;
+    color: silver;
+    padding: 10px 25px;
+    font-size: 12px;
+    text-align: right;
+    bottom: 0;
+}
+a {
+    font-weight: bold;
 }
