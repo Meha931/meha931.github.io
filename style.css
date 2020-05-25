@@ -1,16 +1,16 @@
 body {
     font-family: Arial, sans-serif;
-    background: #eef;
+    background: /*#def;*/ #eef; /* - freef*/
     margin: 0;
 }
 .container {
     width: 80%;
     min-width: 500px;
     margin: 0 auto 0;
-    background: #cbc0b7;
+    background: #edc; /*#cbc0b7;*/
 }
 .header {
-    background: #832;
+    background: #844; /*#832;*/
     padding: 10px 20px;
 } .header h1 {
     color: #F8F8F8;
@@ -28,6 +28,8 @@ body {
 } .content h1 {
     
 } .content p {
+    
+} .content .section {
     
 }
 .sidebar {
