@@ -38,6 +38,7 @@ body {
     padding: 10px 20px;
     background: #fed;
     min-height: 50px;
+    border: solid thin;
 } .sidebar h1 {
     font-size: 20pt;
     text-align: center;
