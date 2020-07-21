@@ -58,3 +58,6 @@ body {
 a {
     font-weight: bold;
 }
+ul {
+    padding-left: inherit; /*somehow it looks nicer..? Well, than numbers*/
+}
