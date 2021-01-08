@@ -2,6 +2,7 @@
 <!--
 	Making of Basic Clicker
 	
+	release "Machines" - Finished the thing, realised it needs a rework
 	beta "Grandmas" - Added grandmas and some more comments
 	beta "Ticks" - More FPS, owner name and item selection
 	alpha "Cursors" - Comments and cursors
@@ -13,12 +14,18 @@
     <title>Basic clicker</title>
 </head>
 <body>
-	<p>Version: beta "Grandmas"</p>
+	<!-- <p>Version: release "Machines"</p> -->
 	<h1 id="header">Basic clicker</h1>
-	<button id="getItem" onclick=itemClick();>+1</button>
+	<button id="getItem" onclick="itemClick();">+1</button>
 	<p id="items">Items: 0</p>
 	<p id="cursors">Cursors: 0</p><button id="buyCursor" onclick="Buy.cursor()">1 cursor @ 15 items</button>
 	<p id="grandmas">Grandmas: 0</p><button id="buyGrandma" onclick="Buy.grandma()">1 grandma @ 100 items</button>
+	<p id="factories">Factories: 0</p><button id="buyFactory" onclick="Buy.factory()">1 factory @ 500 items</button>
+	<p id="mines">Mines: 0</p><button id="buyMine" onclick="Buy.mine()">1 mine @ 2000 items</button>
+	<p id="ships">Spaceships: 0</p><button id="buyShip" onclick="Buy.ship()">1 ship @ 7000 items</button>
+	<p id="labs">Alchemy labs: 0</p><button id="buyLab" onclick="Buy.lab()">1 lab @ 50000 items</button>
+	<p id="portals">Portals: 0</p><button id="buyPortal" onclick="Buy.portal()">1 portal @ 1000000 items</button>
+	<p id="machines">Time machines: 0</p><button id="buyMachine" onclick="Buy.machine()">1 machine @ 123456789 items</button>
 	
 	<script>
 
@@ -29,7 +36,7 @@ var itemName = prompt("Tell what items you are going to make:","cookies");
 if ((itemName === null) || (itemName === "")) { alert("Nothings?\nAlright.");itemName = "nothings" }
 
 // Set TPS
-const tps = 66;
+const tps = 15;
 const commission = 1.15;
 
 // Game database
@@ -40,11 +47,23 @@ var Game = {
 	items: 0,
 	tick: 0,
 	cursors: 0,
-	grandmas: 0
+	grandmas: 0,
+	factories: 0,
+	mines: 0,
+	ships: 0,
+	labs: 0,
+	portals: 0,
+	machines: 0
 };
 var tempValues = {};
 	tempValues.cursorPrice = 15;
 	tempValues.grandmaPrice = 100;
+	tempValues.factoryPrice = 500;
+	tempValues.minePrice = 2000;
+	tempValues.shipPrice = 7000;
+	tempValues.labPrice = 50000;
+	tempValues.portalPrice = 1000000;
+	tempValues.machinePrice = 123456789;
 // Getting the elements for ease of text changing
 var docElem = function (id) {return document.getElementById(id)};
 var DocElems = {};
@@ -56,6 +75,24 @@ var DocElems = {};
 	// Grandmas:
 	DocElems.grandmas = docElem("grandmas");
 	DocElems.buyGrandma = docElem("buyGrandma");
+	// Factories:
+	DocElems.factories = docElem("factories");
+	DocElems.buyFactory = docElem("buyFactory");
+	// Mines:
+	DocElems.mines = docElem("mines");
+	DocElems.buyMine = docElem("buyMine");
+	// Ships:
+	DocElems.ships = docElem("ships");
+	DocElems.buyShip = docElem("buyShip");
+	// Labs:
+	DocElems.labs = docElem("labs");
+	DocElems.buyLab = docElem("buyLab");
+	// Portals:
+	DocElems.portals = docElem("portals");
+	DocElems.buyPortal = docElem("buyPortal");
+	// Machines:
+	DocElems.machines = docElem("machines");
+	DocElems.buyMachine = docElem("buyMachine");
 
 // Displaying the names
 DocElems.header.innerHTML = Game.owner + "'s " + Game.item + " clicker";
@@ -70,13 +107,38 @@ var refreshDisplays = function () {
 	// Grandmas:
 	DocElems.grandmas.innerHTML = "Grandmas: " + Game.grandmas;
 	DocElems.buyGrandma.innerHTML = "1 grandma @ " + tempValues.grandmaPrice + " " + Game.item;
+	// Factories:
+	DocElems.factories.innerHTML = "Factories: " + Game.factories;
+	DocElems.buyFactory.innerHTML = "1 factory @ " + tempValues.factoryPrice + " " + Game.item;
+	/* at this point I've realised I really should rewrite the code */
+	// Mines:
+	DocElems.mines.innerHTML = "Mines: " + Game.mines;
+	DocElems.buyMine.innerHTML = "1 mine @ " + tempValues.minePrice + " " + Game.item;
+	// Ships:
+	DocElems.ships.innerHTML = "Spaceships: " + Game.ships;
+	DocElems.buyShip.innerHTML = "1 ship @ " + tempValues.shipPrice + " " + Game.item;
+	// Labs:
+	DocElems.labs.innerHTML = "Alchemy labs: " + Game.labs;
+	DocElems.buyLab.innerHTML = "1 lab @ " + tempValues.labPrice + " " + Game.item;
+	// Portals:
+	DocElems.portals.innerHTML = "Portals: " + Game.portals;
+	DocElems.buyPortal.innerHTML = "1 portal @ " + tempValues.portalPrice + " " + Game.item;
+	// Machines:
+	DocElems.machines.innerHTML = "Time machines: " + Game.machines;
+	DocElems.buyMachine.innerHTML = "1 machine @ " + tempValues.machinePrice + " " + Game.item;
 };
 
 // Button functions
 var itemClick = function () {Game.items+=1};
 var Buy = {
 	cursor: function(){if (Game.items >= tempValues.cursorPrice) {Game.items -= tempValues.cursorPrice; Game.cursors+=1}}, // Cursor
-	grandma: function(){if (Game.items >= tempValues.grandmaPrice) {Game.items -= tempValues.grandmaPrice; Game.grandmas+=1}} // Grandma
+	grandma: function(){if (Game.items >= tempValues.grandmaPrice) {Game.items -= tempValues.grandmaPrice; Game.grandmas+=1}}, // Grandma
+	factory: function(){if (Game.items >= tempValues.factoryPrice) {Game.items -= tempValues.factoryPrice; Game.factories+=1}}, // Factory
+	mine: function(){if (Game.items >= tempValues.minePrice) {Game.items -= tempValues.minePrice; Game.mines+=1}}, // Mine
+	ship: function(){if (Game.items >= tempValues.shipPrice) {Game.items -= tempValues.shipPrice; Game.ships+=1}}, // Ship
+	lab: function(){if (Game.items >= tempValues.labPrice) {Game.items -= tempValues.labPrice; Game.labs+=1}}, // Lab
+	portal: function(){if (Game.items >= tempValues.portalPrice) {Game.items -= tempValues.portalPrice; Game.portals+=1}}, // Portal
+	machine: function(){if (Game.items >= tempValues.machinePrice) {Game.items -= tempValues.machinePrice; Game.machines+=1}} // Machine
 };
 
 // Production
@@ -84,8 +146,23 @@ var produce = function () {
 	Game.tick+=1;
 	tempValues.cursorPrice = Math.ceil(15*(commission**Game.cursors)); // Remember (not you, the game) the price of cursor
 	tempValues.grandmaPrice = Math.ceil(100*(commission**Game.grandmas)); // Remember the price of grandma
-	if ((Game.tick % (5*tps)) === 0) {Game.items+=(Game.cursors)} // Cursors
-	if ((Game.tick % tps) === 0) {Game.items+=Game.grandmas} // Grandmas
+	tempValues.factoryPrice = Math.ceil(500*(commission**Game.factories)); // Remember the price of factory
+	tempValues.minePrice = Math.ceil(2000*(commission**Game.mines)); // ...mine
+	tempValues.shipPrice = Math.ceil(7000*(commission**Game.ships)); // ...ship
+	tempValues.labPrice = Math.ceil(50000*(commission**Game.labs)); // ...lab
+	tempValues.portalPrice = Math.ceil(1000000*(commission**Game.portals)); // ...portal
+	tempValues.machinePrice = Math.ceil(123456789*(commission**Game.machines)); // ...machine
+	if ((Game.tick % (5*tps)) === 0) {Game.items+=(Game.cursors*1)} // Cursors
+	if ((Game.tick % tps) === 0) {Game.items+=(
+		Game.grandmas*1 + // Grandmas
+		Game.factories*5 + // Factories
+		Game.mines*10 + // Mines
+		Game.ships*25 + // Ships
+		Game.labs*100 + // Labs
+		Game.portals*777*2 + // Portals
+		Game.machines*12345*2 // Machines
+		// ow
+	)}
 }
 
 // Ticker initiation
