@@ -3,23 +3,31 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Bookmarklets</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-	<h1>Bookmarklets collection</h1>
-	<p>Here you can get some useful bookmarklets. Just drag the link to your bookmarks tab!</p>
-<br>
-
-<!--
-<p><a href=''></a></p>
--->
-<p><a href='javascript:(function(d){d.contentEditable=!d.isContentEditable})(document.body)' onclick='alert("As the edit mode disables clicking any links, it will be disabled automatically in 10 seconds.");setTimeout(function(){document.body.contentEditable=false},10000)'>Edit mode toggler</a> and <a href='javascript:void(document.title=prompt("Enter new title:",document.title))'>Title changer</a> - might be useful for, well, editing.</p>
-<p><a href='javascript:void(prompt("Output:",eval(prompt("Input the code that needs to be executed:"))));'>Evaluator</a> - execute some Javascript. Might not work on some sites, because it uses eval().</p>
-<p><a href='javascript:(function(p){if(!(p===null||p===""))location.href="https://google.com/search?q="+p})(prompt("Query:"))'>Google search</a> - quickly switch to Google to look up something.</p>
-<p><a href='javascript:(function(){let c="0123456789abcdefghijklmnopqrstuvwzyzABCDEFGHIJKLMNOPQRSTUVWZYZ";let o="";while(o.length<12)o+=c.charAt(Math.random()*c.length);prompt("Generated password:",o)})();'>Password generator</a> -  a simple and "cryptographically insecure" password generator.</p>
-<p><a href='javascript:alert(Math.round(Math.random())?"Heads":"Tails")'>Coin</a> - toss a coin to make up a decicion.</p>
-<p><a href='javascript:location.href="https://web.archive.org/web/"+prompt("Input the request date in following format: YearMonthDayHourMinuteSecond","YYYYMMDDHHMMSS")+"/"+location.href+"/";void 0'>Wayback Machine</a> - look up an older version of the site.</p>
-<p><a href='javascript:Game.LoadSave(escape(btoa(prompt(Game.WriteSave(3),atob(unescape(Game.WriteSave(1)).split("!END!")[0])))+"!END!"))'>Save decompiler</a> - for Orteil's <a href='https://orteil.dashnet.org/cookieclicker'>Cookie Clicker</a>. <em>Might</em> work on older versions... though then it won't show the legend.</p>
-
+<div class="container">
+	<div class="header">
+		<h1>Bookmarklets collection</h1>
+		<p>Small useful scripts</p>
+	</div>
+	<div class="content">
+		<p>Here you can get some useful bookmarklets. Just drag the link to your bookmarks tab!</p>
+		<br>
+		<!--
+		<p><a href=''></a></p>
+		-->
+		<p><a href='javascript:(function(d){d.contentEditable=!d.isContentEditable})(document.body)' onclick='alert("As the edit mode disables clicking any links, it will be disabled automatically in 10 seconds.");setTimeout(function(){document.body.contentEditable=false},10000)'>Edit mode toggler</a> and <a href='javascript:void(document.title=prompt("Enter new title:",document.title))'>Title changer</a> - might be useful for, well, editing.</p>
+		<p><a href='javascript:void(prompt("Output:",eval(prompt("Input the code that needs to be executed:"))));'>Evaluator</a> - execute some Javascript. Might not work on some sites, because it uses eval().</p>
+		<p><a href='javascript:(function(p){if(!(p===null||p===""))location.href="https://google.com/search?q="+p})(prompt("Query:"))'>Google search</a> - quickly switch to Google to look up something.</p>
+		<p><a href='javascript:(function(){let c="0123456789abcdefghijklmnopqrstuvwzyzABCDEFGHIJKLMNOPQRSTUVWZYZ";let o="";while(o.length<12)o+=c.charAt(Math.random()*c.length);prompt("Generated password:",o)})();'>Password generator</a> -  a simple and "cryptographically insecure" password generator.</p>
+		<p><a href='javascript:alert(Math.round(Math.random())?"Heads":"Tails")'>Coin</a> - toss a coin to make up a decicion.</p>
+		<p><a href='javascript:location.href="https://web.archive.org/web/"+prompt("Input the request date in following format: YearMonthDayHourMinuteSecond","YYYYMMDDHHMMSS")+"/"+location.href+"/";void 0'>Wayback Machine</a> - look up an older version of the site.</p>
+		<p><a href='javascript:Game.LoadSave(escape(btoa(prompt(Game.WriteSave(3),atob(unescape(Game.WriteSave(1)).split("!END!")[0])))+"!END!"))'>Save decompiler</a> - for Orteil's <a href='https://orteil.dashnet.org/cookieclicker'>Cookie Clicker</a>. <em>Might</em> work on older versions... though then it won't show the legend.</p>
+	</div>
+	<div class="footer">
+		<p><b>MAJ2000</b> by Meha931</p>
+	</div>
+</div>
 </body>
 </html>
