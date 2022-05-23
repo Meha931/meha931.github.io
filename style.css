@@ -25,10 +25,6 @@ body {
     margin-right: 250px;
     min-height: 10px;
     padding: 20px;
-} .content h1 {
-    
-} .content p {
-    
 }/* .content .section {
     
 }*/
@@ -42,8 +38,6 @@ body {
 } .sidebar h1 {
     font-size: 20pt;
     text-align: center;
-} .sidebar p {
-    
 } .sidebar:after {
     clear: both;
 }
@@ -60,4 +54,7 @@ a {
 }
 ul {
     padding-left: inherit; /*somehow it looks nicer..? Well, than numbers*/
+}
+.underline {
+    text-decoration: underline;
 }
