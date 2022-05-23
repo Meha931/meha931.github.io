@@ -6,7 +6,7 @@ body {
 .container {
     width: 80%;
     min-width: 500px;
-    margin: 0 auto 0;
+    margin: 0 auto;
     background: #edc; /*#cbc0b7;*/
 }
 .header {
@@ -22,15 +22,18 @@ body {
     font-weight: bold;
 }
 .content {
-    margin-right: 250px;
+    /* margin-right: 250px; */
     min-height: 10px;
     padding: 20px;
 }/* .content .section {
     
 }*/
 .sidebar {
+    margin-right: -20px;
+    margin-top: -20px;
+    margin-left: 20px;
     float: right;
-    width: 210px;
+    width: 200px;
     padding: 10px 20px;
     background: #fed;
     min-height: 50px;
