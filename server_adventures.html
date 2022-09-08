@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Server adventures</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Server adventures</h1>
+        <p>...or a rant on the difficulty of making a personal server</p>
+    </div>
+    <div class="content">
+        <!-- <div class="sidebar"></div> -->
+        <p>
+            If you want to make a server that can be accessed anywhere, then you need to
+            be prepared for quite a journey. Making an accessible server is not very easy,
+            although not impossible.
+        </p>
+        <h1>The server itself</h1>
+        <p>
+            Getting <em>just</em> a server is not difficult, you just need a machine that
+            can run all day long. <a href="https://www.raspberrypi.com/">Raspberry Pi</a>
+            is a good option, it's relatively cheap and doesn't consume much electricity,
+            though you'll probebly need to buy additional cooling for newer models.<br>
+            You can already use it as a server in a local network, but it's not very
+            interesting if it can't be connected from the Internet.<br>
+            ...or you can rent a server, that's an easy option
+        </p>
+        <h1>NAT so easy</h1>
+        <p>
+            Some might warn you about having to open/forward ports on your modem. This might
+            be needed at home, but in some cases it might not work. There can be three cases:
+            <ul>
+                <li>
+                    If you use a rented server, you probably don't have to do anything.
+                    Though you should check the control panel for that server to see
+                    if there's an option to open ports;
+                </li>
+                <li>
+                    If you use one of your machines as a server and you're in a small house,
+                    then you probably just have to do that forwarding thing, after which
+                    your server can be accessed through your external IP;
+                </li>
+                <li>
+                    ...probably, because it might fail, especially in multi-apartment houses,
+                    because you technically would have to do port forwarding on your router
+                    <i>and</i> your ISP's router (because why would they assign external IPs
+                    to every single apartment when one can be enough, there aren't many free
+                    IPv4 addresses), which is unreachable by you.<br>
+                    You have few other options then:
+                    <ul>
+                        <li>
+                            Ask ISP to provide you with a dedicated IP (which I wouldn't do
+                            because I don't think I'll use the correct terminology);
+                        </li>
+                        <li>
+                            Use ngrok <s>which is proprietary thing and is basically a
+                            variant of the next option</s>;
+                        </li>
+                        <li>
+                            Rent a server to be a VPN router and proxy connections though
+                            this tunnel to your server.<br>
+                            Which is what I did.<br>
+                            Kind of defeats the reason for having your server, but it might
+                            be reasonable if you don't want to rent a powerful machine but
+                            rather use your own.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </p>
+        <h1>Claim the domain</h1>
+        <p>
+            If you have a dynamic IP, you should get a dynamic DNS to have access to your
+            server in case IP changes. You can also use it as a free domain for a static IP,
+            but if you want a fancy name for it, some money must be spent.<br>
+            .ru and .xyz seem pretty cheap &#129300;
+        </p>
+        <h1>[lock emoji &#128272;]</h1>
+        <p>
+            ...and it would be good idea to additionally encrypt connection to that server.
+            Certificates are free, there's no much reason not to get one
+        </p>
+        <h1>Usage</h1>
+        <p>
+            And now your server's set. Host a website/cloud/game, make an app, use an app...
+            whatever you wanted a server for.
+        </p>
+        <p><br><br><br><br><br></p>
+        <p style="font-size: 8px">
+            PS. Still having a fever of accomplishment<br>
+            eeeeeeeee i finally got online
+        </p>
+    </div>
+    <div class="footer">
+        <p><a href="/maj2000.html">MAJ2000</a> by Meha931</p>
+    </div>
+</div>
+</body>
+</html>

@@ -57,8 +57,12 @@ body {
 a {
     font-weight: bold;
 }
+p {
+    line-height: 1.5;
+}
 ul {
-    padding-left: inherit; /*somehow it looks nicer..? Well, than numbers*/
+    /* padding-left: inherit; somehow it looks nicer..? Well, than numbers */ /* Not nicer, breaks multilevel lists */
+    line-height: 1.5;
 }
 .underline {
     text-decoration: underline;
